@@ -1,14 +1,10 @@
 rm /etc/resolv.conf
 
-echo Quel domain ?
+echo Quel domaine ?
 read domain
 
 echo domain $domain >> /etc/resolv.conf
-
-echo Quel search ?
-read search
-
-echo search $search >> /etc/resolv.conf
+echo search $domain >> /etc/resolv.conf
 
 echo Combien de nameserver ?
 read nbnameserver
