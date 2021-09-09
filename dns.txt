@@ -1,0 +1,77 @@
+
+nano /etc/hostname
+dns
+
+nano /etc/resolv.conf 
+domain latotomobile.fr
+search latotomobile.fr
+nameserver 172.17.3.103
+nameserver 172.17.7.245
+
+nano /etc/network/interfaces
+
+apt install bind9
+
+nano /ect/bind/named.conf.local
+
+zone "latotomobile.fr" {
+        type master;
+        file "latotomobile.fr";
+
+};
+
+
+nano /etc/bind/named.conf.options
+
+verifié dir
+
+cd /var/cache/bind
+nano latotomobile.fr
+
+$TTL	86400
+@			IN	SOA	dns.latotomobile.fr. root.latotomobile.fr. (
+					2008113001  ;serial
+					86400       ;refresh
+					21600       ;retry
+					3600000     ;expire
+					3600 ) ;negative caching ttl
+
+@			IN	NS		dns.latotomobile.fr.
+
+dns			IN	A		172.17.3.103
+www			IN 	A		172.17.3.86
+boutique		IN	A 		172.17.3.87
+ftp			IN	CNAME		servftp
+
+reboot
+
+création reverse:
+
+nano /ect/bind/named.conf.local
+
+zone "3.17.172.in-addr.arpa" {
+	type master;
+	file "db.172.17.3.rev";
+};
+
+
+cd /var/cache/bind
+nano db.172.17.3.rev
+
+$TTL	86400
+@			IN	SOA	dns.latotomobile.fr. root.latotomobile.fr. (
+					2008113001  ;serial
+					86400       ;refresh
+					21600       ;retry
+					3600000     ;expire
+					3600 ) ;negative caching ttl
+
+@			IN	NS		dns.latotomobile.fr.
+
+103			IN	PTR		dns.latotomobile.fr.
+86			IN	PTR		www.latotomobile.fr.
+87			IN	PTR		boutique.latotomobile.fr.
+
+
+systemctl restart bind9
+
