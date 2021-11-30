@@ -23,9 +23,9 @@ echo "Création des bases de données"
 apt install mariadb-server -y
 
 mysql -u root
-CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
-grant all privileges on glpi.* to newuser@localhost;
-flush privileges;
-exit;
+echo "CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';"
+echo "grant all privileges on glpi.* to newuser@localhost;"
+echo "flush privileges;"
+echo "exit;"
 
 echo "Vous pouvez vous rendre sur http://votre_ip/glpi"
