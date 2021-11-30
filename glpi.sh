@@ -22,10 +22,12 @@ chmod -R 775 /var/www/html/glpi
 echo "Création des bases de données"
 apt install mariadb-server -y
 
-mysql -u root
+
 echo "CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';"
 echo "grant all privileges on glpi.* to newuser@localhost;"
 echo "flush privileges;"
 echo "exit;"
+mysql -u root
+
 
 echo "Vous pouvez vous rendre sur http://votre_ip/glpi"
